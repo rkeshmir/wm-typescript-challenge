@@ -18,11 +18,12 @@ export const RecipeCard = (props: { cocktail: Recipe }) => {
             "special" in ingredient ? (
               <li key={ingredient.special}>{ingredient.special}</li>
             ) : (
-              <li key={ingredient.ingredient}>
+              <li key={ingredient.ingredient + ingredient.label}>
                 {[
                   ingredient.amount,
                   ingredient.unit,
-                  ingredient.ingredient,
+                  ingredient.ingredient +
+                    (ingredient.label ? ` (${ingredient.label})` : ""),
                 ].join(" ")}
               </li>
             )
