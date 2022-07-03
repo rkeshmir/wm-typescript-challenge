@@ -32,7 +32,7 @@ const Recipes = () => {
     });
   }, [page]);
   return (
-    <main className="h-full">
+    <main className="flex h-full flex-col">
       <nav
         className="mb-2"
         aria-label="Page navigation"
@@ -85,7 +85,7 @@ const Recipes = () => {
           </li>
         </ul>
       </nav>
-      <div className="grid gap-2 overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-2 overflow-y-auto overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {cocktails?.map((cocktail) => (
           <RecipeCard key={cocktail.name} cocktail={cocktail} />
         ))}
