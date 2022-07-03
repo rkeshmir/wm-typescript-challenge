@@ -13,8 +13,8 @@ const Homepage = () => {
     fetchData().then((res: Recipe[]) => setCocktails(res));
   }, []);
   return (
-    <main>
-      <div className="grid gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
+    <main className="flex h-full flex-col">
+      <div className="grid gap-2 overflow-y-auto overflow-y-auto sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
         {cocktails?.map((cocktail) => (
           <RecipeCard key={cocktail.name} cocktail={cocktail} />
         ))}

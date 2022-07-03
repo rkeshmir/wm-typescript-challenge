@@ -34,7 +34,7 @@ const Recipes = () => {
   return (
     <main className="flex h-full flex-col">
       <nav
-        className="mb-2"
+        className="mb-2 flex justify-center"
         aria-label="Page navigation"
         data-testid="page-navigation"
       >
