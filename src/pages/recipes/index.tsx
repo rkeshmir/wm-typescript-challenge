@@ -9,6 +9,8 @@ const Recipes = () => {
   const navigate = useNavigate();
   const [cocktails, setCocktails] = useState<Recipe[]>([]);
   const [pageCount, setPageCount] = useState(1);
+  const isCurrentPage = (pageNumber: number) =>
+    pageNumber === parseInt(page || "0", 10);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -26,11 +28,16 @@ const Recipes = () => {
   }, [page]);
   return (
     <main className="h-full">
-      <nav className="mb-2" aria-label="Page navigation">
+      <nav
+        className="mb-2"
+        aria-label="Page navigation"
+        data-testid="page-navigation"
+      >
         <ul className="inline-flex -space-x-px">
           <li>
             <button
               type="button"
+              data-testid="previous-page"
               className="ml-0 rounded-l-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Previous
@@ -39,16 +46,17 @@ const Recipes = () => {
 
           {Array.from({ length: pageCount }, (_, i) => i + 1).map(
             (pageNumber) => (
-              <li key={pageNumber}>
+              <li
+                key={pageNumber}
+                data-testid={`page-${pageNumber}${
+                  isCurrentPage(pageNumber) ? "-current" : ""
+                }`}
+              >
                 <button
                   type="button"
-                  aria-current={
-                    pageNumber === parseInt(page || "0", 10)
-                      ? "page"
-                      : undefined
-                  }
+                  aria-current={isCurrentPage(pageNumber) ? "page" : undefined}
                   className={`border border-gray-300 py-2 px-3 dark:border-gray-700${
-                    pageNumber === parseInt(page || "0", 10)
+                    isCurrentPage(pageNumber)
                       ? " bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 dark:bg-gray-700 dark:text-white"
                       : " bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   }`}
@@ -62,6 +70,7 @@ const Recipes = () => {
           <li>
             <button
               type="button"
+              data-testid="next-page"
               className="rounded-r-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Next
@@ -70,7 +79,7 @@ const Recipes = () => {
         </ul>
       </nav>
       <div className="grid gap-2 overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {cocktails.map((cocktail) => (
+        {cocktails?.map((cocktail) => (
           <RecipeCard key={cocktail.name} cocktail={cocktail} />
         ))}
       </div>

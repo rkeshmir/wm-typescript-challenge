@@ -15,7 +15,7 @@ const Homepage = () => {
   return (
     <main>
       <div className="grid gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
-        {cocktails.map((cocktail) => (
+        {cocktails?.map((cocktail) => (
           <RecipeCard key={cocktail.name} cocktail={cocktail} />
         ))}
       </div>
