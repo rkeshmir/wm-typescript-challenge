@@ -12,7 +12,20 @@ const navbarStyles = {
 };
 
 export const Navbar = () => {
+  const applyDarkMode = () => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+      return true;
+    }
+    document.documentElement.classList.remove("dark");
+    return false;
+  };
   const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
     <nav className="py-6 px-2 dark:bg-gray-900 sm:px-4 md:pt-12">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
@@ -83,6 +96,22 @@ export const Navbar = () => {
               >
                 Recipes
               </NavLink>
+            </li>
+            <li>
+              <label htmlFor="dark-mode-switch" className="dark:text-white">
+                <input
+                  className="mr-1"
+                  id="dark-mode-switch"
+                  type="checkbox"
+                  value={applyDarkMode() ? "true" : "false"}
+                  onChange={(e) => {
+                    const { checked } = e.target;
+                    localStorage.theme = checked ? "dark" : undefined;
+                    applyDarkMode();
+                  }}
+                />
+                Switch dark mode
+              </label>
             </li>
           </ul>
         </div>

@@ -11,7 +11,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="flex h-screen flex-col bg-pampas" data-testid="main">
       <Navbar />
-      <div className="h-full min-h-0 flex-1 px-8 py-6 sm:px-4">
+      <div className="h-full min-h-0 flex-1 px-8 py-6 dark:bg-gray-900 sm:px-4">
         <div className="container mx-auto h-full">
           {outlet ? <Outlet /> : children}
         </div>
