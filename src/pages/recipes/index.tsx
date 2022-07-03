@@ -44,7 +44,7 @@ const Recipes = () => {
               onClick={() => shiftPage(-1)}
               type="button"
               data-testid="previous-page"
-              className="ml-0 rounded-l-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="ml-0 w-24 rounded-l-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Previous
             </button>
@@ -53,6 +53,7 @@ const Recipes = () => {
           {Array.from({ length: pageCount }, (_, i) => i + 1).map(
             (pageNumber) => (
               <li
+                className="hidden md:block"
                 key={pageNumber}
                 data-testid={`page-${pageNumber}${
                   isCurrentPage(pageNumber) ? "-current" : ""
@@ -73,12 +74,28 @@ const Recipes = () => {
               </li>
             )
           )}
+          <li className="md:hidden">
+            <input
+              data-testid="page-navigation-input"
+              className="h-full border border-gray-300 py-2 px-3"
+              value={page}
+              min={0}
+              max={pageCount}
+              type="number"
+              onChange={(e) => {
+                const { value } = e.target;
+                const targetPage = parseInt(value, 10);
+                if (targetPage > 0 && targetPage <= pageCount)
+                  navigate(`/recipes/${value}`);
+              }}
+            />
+          </li>
           <li>
             <button
               onClick={() => shiftPage(1)}
               type="button"
               data-testid="next-page"
-              className="rounded-r-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="w-24 rounded-r-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Next
             </button>
