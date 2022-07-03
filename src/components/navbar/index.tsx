@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
 import { ROUTES } from "../../router";
 
 import { Logo } from "../logo";
@@ -11,6 +12,7 @@ const navbarStyles = {
 };
 
 export const Navbar = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <nav className="py-6 px-2 dark:bg-gray-900 sm:px-4 md:pt-12">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
@@ -20,6 +22,7 @@ export const Navbar = () => {
         </Link>
 
         <button
+          onClick={() => setIsNavOpen(!isNavOpen)}
           data-collapse-toggle="mobile-menu"
           type="button"
           className="ml-3 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
@@ -52,7 +55,12 @@ export const Navbar = () => {
             />
           </svg>
         </button>
-        <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
+        <div
+          className={`${
+            isNavOpen ? "block" : "hidden"
+          } w-full md:block md:w-auto`}
+          id="mobile-menu"
+        >
           <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
             <li>
               <NavLink
