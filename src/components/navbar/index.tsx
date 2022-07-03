@@ -68,7 +68,7 @@ export const Navbar = () => {
             <li>
               <NavLink
                 data-testid="navbar-link--recipes"
-                to={ROUTES.RECIPES}
+                to={ROUTES.RECIPES_NO_PAGE}
                 className={({ isActive }) =>
                   isActive ? navbarStyles.active : navbarStyles.default
                 }

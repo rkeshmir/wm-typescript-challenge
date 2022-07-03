@@ -11,6 +11,11 @@ const Recipes = () => {
   const [pageCount, setPageCount] = useState(1);
   const isCurrentPage = (pageNumber: number) =>
     pageNumber === parseInt(page || "0", 10);
+  const shiftPage = (dir: 1 | -1) => {
+    const dest = parseInt(page || "0", 10) + dir;
+    if (dest < 1 || dest > pageCount) return;
+    navigate(`/recipes/${dest}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -36,6 +41,7 @@ const Recipes = () => {
         <ul className="inline-flex -space-x-px">
           <li>
             <button
+              onClick={() => shiftPage(-1)}
               type="button"
               data-testid="previous-page"
               className="ml-0 rounded-l-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -69,6 +75,7 @@ const Recipes = () => {
           )}
           <li>
             <button
+              onClick={() => shiftPage(1)}
               type="button"
               data-testid="next-page"
               className="rounded-r-lg border border-gray-300 bg-white py-2 px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
