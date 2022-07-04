@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "./layouts/main";
 
 import { Homepage, Recipes } from "./pages";
+import NotFound from "./pages/not-found";
 
 export const ROUTES = {
   HOME: "/",
@@ -19,6 +20,7 @@ export const Router = () => {
           path={ROUTES.RECIPES_NO_PAGE}
           element={<Navigate replace to={`${ROUTES.RECIPES_NO_PAGE}/1`} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
