@@ -1,15 +1,7 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Homepage from "./index";
-import cocktails from "../../mocks/data/cocktails.json";
 
-it("renders api message", async () => {
-  jest.spyOn(window, "fetch").mockResolvedValue({
-    json: async () => ({
-      cocktails: cocktails.slice(0, 5),
-    }),
-  });
+it("should show five recipes in the home page", async () => {
   render(<Homepage />);
-  await waitFor(() =>
-    expect(screen.getAllByTestId("cocktail")).toHaveLength(5)
-  );
+  expect(await screen.findAllByTestId(/recipe/)).toHaveLength(5);
 });
