@@ -16,7 +16,8 @@ export const Navbar = () => {
     if (
       localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-color-scheme: dark)")?.matches)
     ) {
       document.documentElement.classList.add("dark");
       return true;
@@ -45,7 +46,6 @@ export const Navbar = () => {
           <Logo />
           <span className="sr-only">Wieni</span>
         </Link>
-
         <button
           onClick={() => setIsNavOpen(!isNavOpen)}
           data-collapse-toggle="mobile-menu"
@@ -93,6 +93,7 @@ export const Navbar = () => {
               <li key={link.testId}>
                 <NavLink
                   data-testid={`navbar-link-${link.testId}`}
+                  aria-label={`Goto Page ${link.label}`}
                   to={link.route}
                   className={({ isActive }) =>
                     isActive ? navbarStyles.active : navbarStyles.default
