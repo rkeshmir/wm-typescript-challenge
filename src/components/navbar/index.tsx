@@ -25,6 +25,18 @@ export const Navbar = () => {
     return false;
   };
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const links = [
+    {
+      label: "Home",
+      route: ROUTES.HOME,
+      testId: "-home",
+    },
+    {
+      label: "Recipes",
+      route: ROUTES.RECIPES_NO_PAGE,
+      testId: "-recipes",
+    },
+  ];
 
   return (
     <nav className="py-6 px-2 dark:bg-gray-900 sm:px-4 md:pt-12">
@@ -73,47 +85,41 @@ export const Navbar = () => {
             isNavOpen ? "block" : "hidden"
           } w-full md:block md:w-auto`}
           id="mobile-menu"
+          role="navigation"
+          aria-label="Main"
         >
           <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
-            <li>
-              <NavLink
-                data-testid="navbar-link--home"
-                to={ROUTES.HOME}
-                className={({ isActive }) =>
-                  isActive ? navbarStyles.active : navbarStyles.default
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                data-testid="navbar-link--recipes"
-                to={ROUTES.RECIPES_NO_PAGE}
-                className={({ isActive }) =>
-                  isActive ? navbarStyles.active : navbarStyles.default
-                }
-              >
-                Recipes
-              </NavLink>
-            </li>
-            <li>
-              <label htmlFor="dark-mode-switch" className="dark:text-white">
-                <input
-                  className="mr-1"
-                  id="dark-mode-switch"
-                  type="checkbox"
-                  value={applyDarkMode() ? "true" : "false"}
-                  onChange={(e) => {
-                    const { checked } = e.target;
-                    localStorage.theme = checked ? "dark" : undefined;
-                    applyDarkMode();
-                  }}
-                />
-                Switch dark mode
-              </label>
-            </li>
+            {links.map((link) => (
+              <li key={link.testId}>
+                <NavLink
+                  data-testid={`navbar-link-${link.testId}`}
+                  to={link.route}
+                  className={({ isActive }) =>
+                    isActive ? navbarStyles.active : navbarStyles.default
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
           </ul>
+        </div>
+        <div className="ml-6">
+          <label htmlFor="dark-mode-switch" className="dark:text-white">
+            <input
+              className="mr-1"
+              id="dark-mode-switch"
+              type="checkbox"
+              aria-label="Dark mode switch"
+              value={applyDarkMode() ? "true" : "false"}
+              onChange={(e) => {
+                const { checked } = e.target;
+                localStorage.theme = checked ? "dark" : undefined;
+                applyDarkMode();
+              }}
+            />
+            Switch dark mode
+          </label>
         </div>
       </div>
     </nav>
