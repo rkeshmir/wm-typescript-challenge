@@ -88,12 +88,12 @@ const Recipes = () => {
           )}
           <li className="md:hidden">
             <input
-              data-testid="page-navigation-input"
               className="h-full border border-gray-300 py-2 px-3"
               value={page()}
               min={0}
               max={pageCount}
               type="number"
+              aria-label="Page number"
               onChange={(e) => {
                 const { value } = e.target;
                 const targetPage = parseInt(value, 10);
