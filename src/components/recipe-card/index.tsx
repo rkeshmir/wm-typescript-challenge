@@ -4,6 +4,7 @@ export const RecipeCard = (props: { cocktail: Recipe }) => {
   const { cocktail } = props;
   return (
     <div
+      role="gridcell"
       className="flex border border-gray-200 bg-white/50 p-4 dark:rounded dark:border-0"
       data-testid={`recipe-${cocktail.name}`}
     >

@@ -14,7 +14,10 @@ const Homepage = () => {
   }, []);
   return (
     <main className="flex h-full flex-col">
-      <div className="grid gap-2 overflow-y-auto overflow-y-auto sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
+      <div
+        className="grid gap-2 overflow-y-auto overflow-y-auto sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
+        role="grid"
+      >
         {cocktails?.map((cocktail) => (
           <RecipeCard key={cocktail.name} cocktail={cocktail} />
         ))}
